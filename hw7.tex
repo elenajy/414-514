@@ -1,0 +1,141 @@
+\documentclass[12pt,oneside]{amsart}
+\linespread{2.4}
+\usepackage[utf8]{inputenc}
+
+\title{Math 414/514 Homework 7}
+\author{Elena Yang}
+\date{April 4, 2021}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[letterpaper,margin=1.5in]{geometry}
+\usepackage[pagebackref]{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{comment}
+\pagestyle{fancy}
+
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{claim}[equation]{Claim}
+\newtheorem{lemma}[equation]{Theorem}
+\newtheorem{corollary}[equation]{Theorem}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem{question}[equation]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definition}
+\theoremstyle{remark}
+\newtheorem{exer}{Exercise}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
+\numberwithin{equation}{exer}
+\newenvironment{answer}{\bigskip\noindent\emph{Answer.}}{\hfill$\diamond$\newline}
+
+\begin{document}
+\maketitle
+\begin{exer}
+Lebl 6.3.4: Let $f'(x)=xf(x)$ be our equation. Start with the initial condition $f(0)=2$ and find the Picard iterates $f_0,f_1,f_2,f_3,f_4$. 
+\end{exer}
+\begin{answer} 
+We know that $F(x,y)=xy$. Then: $\cdot f_0=\boxed{2}$ (constant) \\
+$\cdot f_1(x)= 2+\int_{0}^{x}F(t,f_0(t))dt=2+\int_{0}^{x}F(t,2)dt=2+\int_{0}^{x}2tdt=2+(t^2)|_{0}^{x}=\boxed{2+x^2}$ \\
+$\cdot f_2(x)= 2+\int_{0}^{x}F(t,f_1(t))dt=2+\int_{0}^{x}F(t,2+t^2)dt=2+\int_{0}^{x}2t+t^3dt=2+(t^2+\frac{t^4}{4})|_{0}^{x}=\boxed{2+x^2+\frac{x^4}{4}}$ \\
+$\cdot f_3(x)= 2+\int_{0}^{x}F(t,f_2(t))dt=2+\int_{0}^{x}F(t,2+t^2+\frac{t^4}{4})dt=2+\int_{0}^{x}(2t+t^3+\frac{t^5}{4})dt=2+(t^2+\frac{t^4}{4}+\frac{t^6}{24})|_{0}^{x}=\boxed{2+x^2+\frac{x^4}{4}+\frac{x^6}{24}}$ \\
+$\cdot f_4(x)= 2+\int_{0}^{x}F(t,f_3(t))dt=2+\int_{0}^{x}F(t,2+t^2+\frac{t^4}{4}+\frac{t^6}{24})dt=2+\int_{0}^{x}(2t+t^3+\frac{t^5}{4}+\frac{t^7}{24})dt=2+(t^2+\frac{t^4}{4}+\frac{t^6}{24}+\frac{t^8}{192})|_{0}^{x}=\boxed{2+x^2+\frac{x^4}{4}+\frac{x^6}{24}+\frac{x^8}{192}}$
+\end{answer}
+
+\newpage
+\begin{exer}
+Lebl 6.3.8: Consider the equation $y'=y^{\frac{1}{3}}x$\\
+a) Show that for the inital condition $y(1)=1$, Picard's theorem applies. Find an $\alpha>0, M, L$ and $h$ that would work in the proof. \\
+b) Show that for the initial condition $y(1)=0$, Picard's theorem does not apply. \\
+c) Find a solution for $y(1)=0$ anyways.
+\end{exer}
+
+\begin{theorem}
+Let $F:I\times J\rightarrow\mathbb{R}$ be a function where $I,J\subset\mathbb{R}$ are closed and bounded intervals such that $\frac{\partial F}{\partial y}$ exists for all $(x,y)\in I\times J$. Then, $F$ is Lipschitz with respect to $y$ if and only if $\frac{\partial F}{\partial y}$ is bounded.
+\end{theorem}
+\begin{proof}
+First we will prove the forward direction, that is suppose $F$ is Lipschitz with respect to $y$. Fixing $x$ and using the definition of Lipschitz we know that there exists an $L$ such that
+$$|F(x,y+h)-F(x,y)|\leq L\cdot h$$
+$$|\frac{F(x,y+h)-F(x,y)}{h}|\leq L$$
+$$|\frac{\partial F}{\partial y}|\leq L$$
+Therefore $\frac{\partial F}{\partial y}$ is bounded by $L$. \\
+Now we will prove the opposite direction. Suppose $\frac{\partial F}{\partial y}$ is bounded. By definition of bounded, there exists an $L$ such that $\frac{\partial F}{\partial y}\leq L$. Since $\frac{\partial F}{\partial y}$ exists for all $(x,y)\in I\times J$, by the Mean Value Theorem there exists $c$ in the interior of $J$ such that $|F(x,y)-F(x,z)|=|\frac{\partial F}{\partial y}(x,c)||y-z|\leq L|y-z|$. Thus, $F$ is Lipschitz with respect to $y$.
+\end{proof}
+
+\begin{answer}
+a) Conditions for Picard's theorem to apply are that $F$ is continuous and Lipschitz in the second variable. Let $F(x,y)=y^\frac{1}{3}x$. \\
+We know that $F$ is continuous at $(x,y)$ if for every sequence $\{(x_n,y_n)\}_{n=1}^{\infty}$ of points in $U$ such that $\lim x_n=x$ and $\lim y_n=y$, we have
+$$\lim_{n\to\infty}F(x_n,y_n)=F(x,y)$$ 
+Since $\lim y_n=y$, we know that $y_n^\frac{1}{3}=y^\frac{1}{3}$. Which  means \\ that $\lim y_n^{\frac{1}{3}}\cdot \lim x_n = y^\frac{1}{3}x$ so by definition it's continuous. \\
+The partial derivative $f_y=\frac{1}{3}y^{-\frac{2}{3}}x$ is continuous and bounded everywhere with the initial condition $y(1)=1$, thus by theorem 2.1 $F$ is Lipschitz. \\
+Since $I, J$ need to be around $1$, let $I=[0,3]$ and $J=[0,3]$. Then $\frac{\partial F}{\partial y}=\frac{1}{3}y^{-\frac{2}{3}}x$ exists and is bounded.  Let $L=\sup\frac{\partial F}{\partial y}=4$ and let $M=\sup F=3(3)^\frac{1}{3}$ Then $[1-\alpha,1+\alpha]\subset I,[1-\alpha,1+\alpha]\subset J\implies\alpha\frac{1}{2}$. Finally, $h\leq\frac{\alpha}{M+L\alpha}=\frac{\frac{1}{2}}{6(3)^\frac{1}{3}}=\frac{1}{3(3)^\frac{1}{3}}$ \\
+b) The partial derivative $f_y=\frac{1}{3}y^{-\frac{2}{3}}x$ is not continuous and bounded everywhere with the inital condition $y(1)=0$, thus by theorem 2.1, $F$ isn't Lipschitz.  \\
+c) Rewrite $y'=y^\frac{1}{3}x$ as follows
+$$\frac{dy}{dx}=y^\frac{1}{3}x$$
+$$\int y^{-\frac{1}{3}}dy=\int x dx$$
+$$\frac{3}{2}y^\frac{2}{3}=\frac{x^2}{2}+C$$
+$$\text{Plug in $y(1)=0$}\rightarrow0=\frac{1}{2}+C$$
+$$C=-\frac{1}{2}$$
+$$\frac{3}{2}y^\frac{2}{3}=\frac{x^2}{2}-\frac{1}{2}$$
+$$3y^\frac{2}{3}=x^2-1$$
+$$y=(\frac{x^2-1}{3})^\frac{3}{2}$$
+\end{answer}
+
+\newpage
+\begin{exer}
+Lebl 6.3.9: Consider the equation $xy'=2y$. \\
+a) Show that $y=Cx^2$ is a solution for any $C$. \\
+b) Show that for any $x_0\neq 0$, and any $y_0$, Picard's theorem applies for the initial condition $y(x_0)=y_0$. \\
+c) Show that $y(0)=y_0$ is solvable if and only if $y_0=0$.
+\end{exer}
+
+
+
+\begin{answer}
+a) Let $y=Cx^2$. Then, $y'=2Cx$. Plugging this value of $y'$ into $xy'=2y$ we get
+$$x(2Cx)=2(Cx^2)$$
+$$2Cx^2=2Cx^2$$
+which means that $y=Cx^2$ is a solution to the equation for any $C$.\\
+b) $y'=\frac{2y}{x}$ is only discontinuous at $x=0$, and the partial derivative $\frac{2}{x}$ is also only discontinuous at $x=0$ and doesn't depend on $y$ which means $y_0$ can be anything which satisfies that the function is continuous and Lipschitz through theorem 2.1.  \\
+Note that $y'=\frac{2y}{x}$ is not actually continuous at $x=0$, but since 0 doesn't have to be in the interior of $I$ we can omit that break in continuity. \\
+c) First we will show $y(0)=y_0\implies y_0=0$. \\ 
+Set $x=0\implies 0y'=2y\implies y=0$ \\
+Now we will show that $y_0\implies y(0)=y_0$. \\ 
+Set $y=0\implies xy'=0$ so $x=0$ makes sense because $0=0$
+\end{answer}
+
+\newpage
+\begin{exer}
+Consider the initial value problem $y'=x^2+y^3, y(1)=1$, with the constraints $0\leq x\leq 2$, $0\leq y \leq 3$. \\
+a. Let $F(x,y)=x^2+y^3$. Find the smallest possible bounded for $F$ on the rectangle $R$ defined by $0\leq x\leq 2$, $0\leq y\leq 3$. \\
+b. Find the smallest possible Lipschitz constant for $F$ in the rectangle $R$. (Hint: an upper bounded $\frac{\partial F}{\partial y}$ is a Lipschitz constant for $F$.) \\
+c. Find the largest possible $\alpha$ such that the square $[x_0-\alpha,x_0+\alpha]\times[y_0-\alpha,y_0+\alpha]$ is contained in the rectangle $R$, where $(x_0,y_0)$ is the initial point $(1,1)$. \\
+d. Find a value $h$ so that the initial value problem is guaranteed to have a unique solution on the interval $[x_0-h,x_0+h]$. Try to find the largest possible such $h$. You may see Lebl's statements, or statements from class.
+\end{exer}
+\begin{answer}
+a) Since $x^2$ and $y^3$ are both increasing, and so is their sum, the largest possible value is at the endpoints or at $x=2,y=3$. Thus, we have $2^2+3^3=\boxed{31}$. \\
+b) $\frac{\partial F}{\partial y}=3y=\boxed{27}$. 
+\begin{proof}
+Suppose an Lipschitz constant $L<27$ exists in rectangle $R$.
+$$|x^2+y^3-(x^2+z^3)|\leq L|y-z|$$ 
+$$|y^3-z^3|\leq L|y-z|$$
+$$|(y-z)(y^2+2yz+z^2|\leq L|y-z|$$
+$$|y^2+2yz+z^2|\leq L$$
+We know that $y,z\in[0,3]$ and all the terms are positive so we get
+$$2yz+z^2\leq L-y^2$$
+$$6z+z^2\leq L-9$$
+Since $L<27$, $L-9<18$ so $6z+z^2<18$. Since $\lim(z)\rightarrow 3(6z)+z^2=27$ and $27>18$ we arrive at a contradiction.
+\end{proof}
+c) $\boxed{\alpha=1}$ because if it was bigger it would violate $I$ since $x$ is at max $2$. You want the biggest square that is still contained in the rectangle and $[x_0-1, x_0+1]$ is $[0,2]$ which is exactly the $x$ interval given. \\
+d) One $h$ that works is $\boxed{\frac{1}{31}}$. From the class notes we know that an $h$ that works is $h=\min(\alpha,\frac{\beta}{M},\frac{1}{L+\epsilon})=\min(1,\frac{1}{31},\frac{1}{27})$. This is the biggest because otherwise it would be bigger than $\frac{\beta}{M}$.
+Suppose a bigger h, $h>1/31$. Then $h$ will not be the minimum of that set of values and thus $\frac{1}{31}$ is the max of the values.
+
+
+\end{answer}
+
+\end{document}

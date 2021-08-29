@@ -1,0 +1,136 @@
+\documentclass[12pt,oneside]{amsart}
+\linespread{2.4}
+\usepackage[utf8]{inputenc}
+
+\title{Math 414/514 Homework 6}
+\author{Elena Yang}
+\date{March 24, 2021}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[letterpaper,margin=1.5in]{geometry}
+\usepackage[pagebackref]{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{comment}
+\pagestyle{fancy}
+
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{claim}[equation]{Claim}
+\newtheorem{lemma}[equation]{Theorem}
+\newtheorem{corollary}[equation]{Theorem}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem{question}[equation]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definition}
+\theoremstyle{remark}
+\newtheorem{exer}{Exercise}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
+\numberwithin{equation}{exer}
+\newenvironment{answer}{\bigskip\noindent\emph{Answer.}}{\hfill$\diamond$\newline}
+
+\begin{document}
+\maketitle
+\begin{exer}
+a) Lebl 6.1.4: Suppose $\{f_n\}$ and $\{g_n\}$ defined on some set $A$ converge to $f$ and $g$ respectively pointwise. Show that $\{f_n+g_n\}$ converges pointwise $f+g$. \\
+b) Lebl 6.1.5: Suppose $\{f_n\}$ and $\{g_n\}$ defined on some set $A$ converge to $f$ and $g$ respectively uniformly on $A$. Show that $\{f_n+g_n\}$ converges uniformly to $f+g$ on $A$.
+\end{exer}
+\begin{proof}
+a) By definition 1.1, for every $x\in S$ we have
+$$f=\lim_{n\to\infty}f_n(x)$$
+$$g=\lim_{n\to\infty}g_n(x)$$
+Analyzing $\{f_n+g_n\}$ on $A$ we have
+$$(f+g)(x)=\lim_{n\to\infty}\{f_n(x)+g_n(x)\}$$
+$$=\lim_{n\to\infty}f_n(x)+\lim_{n\to\infty}g_n(x)$$
+$$=f+g $$
+b) Let $\epsilon>0$ be given. Then by definition 1.2, there exists $N\in\mathbb{N}$ such that for all $n\geq N$
+$$|f_n(x)-f(x)|<\frac{\epsilon}{2}$$
+$$|g_n(x)-g(x)|<\frac{\epsilon}{2}$$
+for all $x\in\mathbb{A}$. 
+Then, for all $n\geq N$ and $x\in A$, we have
+$$|(f_n+g_n)(x)-(f+g)(x)|=|(f_n(x)+g_n(x))-(f(x)+g(x))|$$
+$$\leq|f_n(x)-f(x)|+|g_n(x)-g(x)|$$
+$$<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$$
+Thus by definition $\{f_n+g_n\}$ converges uniformly to $f+g$ on $A$.
+\end{proof}
+\begin{definition}
+For every $n\in\mathbb{N}$ let $f_n:S\rightarrow\mathbb{R}$ be a function. We say the sequence $\{f_n\}_{n=1}^\infty$ converges pointwise to $f:S\rightarrow\mathbb{R}$, if for every $x\in S$ we have 
+$$f(x)=\lim_{n\to\infty}f_n(x)$$
+\end{definition}
+\begin{definition}
+Let $f_n:S\rightarrow\mathbb{R}$ and $f:S\rightarrow\mathbb{R}$ be functions. We say the sequence $\{f_n\}$ converges uniformly to $f$, if for every $\epsilon>0$ there exists an $N\in\mathbb{N}$ such that for all $n\geq N$ we have 
+$$|f_n(x)-f(x)|<\epsilon$$ for all $x\in S$.
+\end{definition}
+
+\newpage
+
+\begin{exer}
+Lebl 6.1.6: Find an example of a sequence of functions $\{f_n\}$ and $\{g_n\}$ that converge uniformly to some $f$ and $g$ on some set $A$ but such that $\{f_ng_n\}$ (the multiple) does not converge uniformly to $fg$ on $A$. Hint: Let $A:=\mathbb{R}$, let $f(x):=g(x):=x$. You can even pick $f_n=g_n$.
+\end{exer}
+\begin{answer}
+Let $A=\mathbb{R}$ and let $f_n=g_n=x$. Then let $f_n(x)=g_n(x)=x+\frac{1}{n}$. \\
+First, we will show that $f_n(x)=g_n(x)=x+\frac{1}{n}$ converges uniformly. Let $\epsilon>0$. Let $N\in\mathbb{N}$ exist such that for every $n\geq N$ we have:
+$$|f_n(x)-f(x)|=|x+\frac{1}{n}-x|=\frac{1}{n}\leq\frac{1}{N}<\epsilon$$
+Now, we will show that $\{f_ng_n\}$ does not converge uniformly. Let $\epsilon>0$. Let $N\in\mathbb{N}$ exist such that for every $n\geq N$ we have:
+$$|f_ng_n(x)-f(x)g(x)|=|(x^2+\frac{2}{n}x+\frac{1}{n^2})-x^2|=\frac{2}{n}|x|+\frac{1}{n^2}>\epsilon$$
+for $|x|\geq\frac{n\epsilon}{2}$. Thus by definition 1.2, $\{f_ng_n\}$ does not converge uniformly.
+\end{answer}
+
+\newpage
+
+\begin{exer}
+Lebl 6.1.10: Let $\{f_n\}$ be a sequence of functions defined on $[0,1]$. Suppose there exists a sequence of distinct numbers $x_n\in[0,1]$ such that 
+$$f_n(x_n)=1$$
+Prove or disprove the following statements: \\
+a) True or false: There exists $\{f_n\}$ as above that converges to 0 pointwise. \\
+b) True or false: There exists $\{f_n\}$ as above that converges to 0 uniformly on $[0,1]$.
+\end{exer}
+\begin{answer}
+a) True. Let
+\begin{equation*}
+f_n(x) = \left\{
+        \begin{array}{ll}
+            2nx & \quad x\in[0,\frac{1}{2n}] \\
+            2-2nx & \quad x\in[\frac{1}{2n},\frac{1}{n}] \\
+            0 & \quad x\in[\frac{1}{n},1]
+        \end{array}
+    \right.
+\end{equation*}
+This function converges to 0 pointwise but $f_n(\frac{1}{2n})=1$.
+\end{answer}
+b) False.
+\begin{proof}
+Using definition 3.1, we see that $\{f_n\}$ converges to $0$ uniformly if the following holds true:
+$$\lim_{n\to\infty}||f_n-0||_u=0$$
+Rewriting the expression we see that:
+$$\lim_{n\to\infty}||f_n-0||_u=\lim_{n\to\infty}\sup(f_n-0)\geq\lim_{n\to\infty}1\neq0$$
+Therefore there does not exist $\{f_n\}$ that converges to $0$ uniformly.
+\end{proof}
+\begin{definition}
+Proposition 6.1.10 states: A sequence of bounded functions $f_n:S\rightarrow\mathbb{R}$ converges uniformly to $f:S\rightarrow\mathbb{R}$ if and only if 
+$$\lim_{n\to\infty}||f_n-f||_u=0$$
+\end{definition}
+
+\newpage
+
+%\begin{exer}
+%Lebl 6.2.12: Find a sequence of Riemann integrable functions $f_n:[0,1]\rightarrow\mathbb{R}$ such that $\{f_n\}$ converges to zero pointwise, and such that \\
+%a) $\{\int_{0}^{1}f_n\}_{n=1}^{\infty}$ increases without bound, \\
+%b) $\{\int_{0}^{1}f_n\}_{n=1}^{\infty}$ is the sequence $-1,1,-1,1,-1,1,...$
+%\end{exer}
+
+\begin{exer}
+Lebl 6.2.7: For a continuously differentiable function $f:[a,b]\rightarrow\mathbb{R}$, define $$||f||_{C^1}:=||f||_u+||f'||_u$$Suppose $\{f_n\}$ is a sequence of continuously differentiable functions such that for every $\epsilon>0$, there exists an $M$ such that for all $n,k\geq M$ we have $$||f_n-f_k||_{C^1}<\epsilon$$Show that $\{f_n\}$ converges uniformly to some continuously differentiable function $f:[a,b]\rightarrow\mathbb{R}$.
+\end{exer}
+\begin{proof}
+Rewriting $||f_n-f_k||_{C^1}<\epsilon$, we have
+$$||f_n-f_k||_u+||f_n'-f_k'||_u<\epsilon$$
+Because || denotes the supremum of an absolute value, both $||f_n-f_k||_u$ and $||f_n'-f_k'||_u$ are positive implying that they are also both less than $\epsilon$. By definition 6.1.12, this means that the $f_n$ is uniformly Cauchy and $f_n$ converges pointwise to $f$. Fixing $c\in[a,b]$ we see that $\{f_n(c)\}\rightarrowf(c)$. Thus, by theorem 6.2.10, $f_n$ converges uniformly to a continuously differentiable function $f$ on $[a,b]$.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,134 @@
+\documentclass[12pt,oneside]{amsart}
+\linespread{2.4}
+\usepackage[utf8]{inputenc}
+
+\title{Math 414/514 Homework 1}
+\author{Elena Yang}
+\date{January 27, 2021}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[letterpaper,margin=1.5in]{geometry}
+\usepackage[pagebackref]{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{comment}
+\pagestyle{fancy}
+
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{claim}[equation]{Claim}
+\newtheorem{lemma}[equation]{Theorem}
+\newtheorem{corollary}[equation]{Theorem}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem{question}[equation]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definition}
+\theoremstyle{remark}
+\newtheorem{exer}{Exercise}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
+\numberwithin{equation}{exer}
+\newenvironment{answer}{\bigskip\noindent\emph{Answer.}}{\hfill$\diamond$\newline}
+
+\begin{document}
+\maketitle
+
+\begin{exer}
+Read: \url{http://web.stonehill.edu/compsci/History_Math/math-read}
+
+(a) What is one interesting or surprising idea you learned from this reading?
+(b) What is one idea you will use when you read mathematics?
+\end{exer}
+\begin{answer}
+(a) I learned about mathematical maturity of books, and how books assumes the reader has a certain amount of knowledge before reading the book. I found this interesting as I often wondered why people on forums or professors choose a certain textbook or reading when there are so many options out there. It makes sense why certain editions or books would be more appropriate for certain audiences. 
+(b) I will make sure to cross reference materials, talk to others, and compare sources. That way I can learn more from the material and understand it more deeply.
+\end{answer}
+
+\newpage
+\begin{exer}  
+3.3.14: Suppose $f:[0,1]\rightarrow(0,1)$ is a bijection. Prove that f is not continuous.
+\end{exer}
+\begin{proof}
+For the sake of contradiction, assume $f$ is continuous. Since $f$ is closed continuous, then by the Minimum-Maximum Theorem we know that $f$ achieves both an absolute maximum and minimum on $[0,1]$. We know that there exists a point $c \in \mathbb{R}$ such that $f(c)\geq f(x)$ for all $x$ in the interval. However, there still exists a range of values from $f(c)$ to $1$. Let $a$ be a point in $(f(c),1)$. Since $f(c)$ is an absolute maximum so there can't exist an $x$ such that $f(x)=a$. Since the rest of this range cannot be achieved through the bijection, $f$ is not continuous. 
+\end{proof}
+
+\newpage
+\begin{exer}
+3.4.5: Let $A,B$ be intervals. Let f$:A\rightarrow\mathbb{R}$ and Let g$:B\rightarrow \mathbb{R}$ be uniformly continuous functions such that $f(x)=g(x)$ for $x\in A\cap B$.\\ Define the function $h:A\cup B\rightarrow\mathbb{R}$ by $h(x) \coloneqq f(x)$ if $x \in A$ and $h(x) \coloneqq g(x)$ if $x\in B$ \textbackslash $A$. \\
+(a) Prove that if $A \cap B \neq \emptyset$, then $h$ is uniformly continuous \\
+(b) Find an example where $A \cap B = \emptyset$ and $h$ is not even continuous
+\end{exer}
+\begin{proof}
+(a) By definition 3.4.1, uniform continuity exists in $S \subset \mathbb{R}$ if for any $\epsilon > 0$ there exists a $\delta > 0$ such that whenever $x,c \in S$ and $|x-c|<\delta$, then $|f(x)-f(c)|<\epsilon$. Without loss of generality, let $\sup(A)\leq \sup(B)$. Then, for any given $\epsilon >0$ choose $\delta_1$ such that $|f(x)-f(c)|< \frac{\epsilon}{2}$ whenever $|x-c|<\delta_1$ and $x,c \in A$ and $\delta_2$ such that $|f(x)-f(c)|<\frac{\epsilon}{2}$  whenever $|x-c|<\delta_2$ and $x,c \in B$. Define $\delta$ to be the minimum of $\delta_1$ and $\delta_2$. \\
+Now, we have three cases. The first two cases are when $x,c \in A$ or $x,c \in B$. These cases are true as $f,g$ are defined to be uniformly continuous functions. \\
+The other case is if $x,c$ are in different intervals. Without loss of generality, let $x \in A$ and $c \in B$. Since $A \cap B \neq \emptyset$, there exists $y \in A \cap B$ such that $y \in (x,c)$ and $x \leq y \leq c$. Now we check for uniform continuity in this case. By definition, we have: 
+$$|h(x)-h(c)|=|h(x)-h(y)+h(y)-h(c)|$$
+$$\leq |h(x)-h(y)|+|h(y)-h(c)|$$
+Since $x,y \in A$ and $y,c \in B$, then we can write:
+$$= |f(x)-f(y)|+|g(y)-g(c)|$$
+The distance from $x,c$ to $y$ are both less than $\delta$, thus:
+$$< \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$$
+Since $|x-y|<\delta \implies |h(x)-h(y)|<\epsilon$ for all $x,y$, then $h$ is uniformly continuous if $A \cap B \neq \emptyset$.
+\end{proof}
+\begin{answer}
+(b) Let $f(x)=0, g(x)=2, A=[0,1)$, and $B=[1,2]$. At $x=1$ the function is discontinuous.
+\end{answer}
+
+\newpage
+\begin{exer}
+4.1.11: Suppose $f:I \rightarrow \mathbb{R}$ is bounded and $g:I \rightarrow \mathbb{R}$ is differentiable at $c \in I$ and $g(c)=g'(c)=0$. Show that $h(x) \coloneqq f(x)g(x)$ is differentiable at $c$. Hint: you cannot apply the product rule.
+\end{exer}
+\begin{proof}
+Recall from Lebl definition 4.1.1 that if $I$ is an interval, $f:I\rightarrow \mathbb{R}$, and $c\in I$, then $f$ is differentiable at $c$ if $\lim_{x \to c} \frac{f(x)-f(c)}{x-c}$ exists. In this case, if $\lim_{x \to c}\frac{h(x)-h(c)}{x-c}$ exists then we will have shown $h(x)$ is differentiable at $c$. Plugging in $h(x) \coloneqq f(x)g(x)$ we get:
+$$h'(x)=\lim_{x \to c} \frac{f(x)g(x)-f(c)g(c)}{x-c}$$
+We know that $g(c)=0$ resulting in:
+$$h'(x)=\lim_{x \to c} \frac{f(x)g(x)}{x-c}$$
+We are given that $f$ is bounded. Thus there exists some $B \in \mathbb{R}$ such that $|f(x)| \leq B$ or $-B \leq f(x) \leq B$ for all $x \in \mathbb{R}$. We can combine $h'(x)$ and the second set of inequalities to get:
+$$-B \cdot \lim_{x \to c} \frac{g(x)}{x-c} \leq \lim_{x \to c} \frac{f(x)g(x)}{x-c} \leq B \cdot \lim_{x \to c} \frac{g(x)}{x-c}$$
+If we look at $\lim_{x \to c} \frac{g(x)}{x-c}$ we see that if we rewrite it as $\lim_{x \to c} \frac{g(x)-g(c)}{x-c}$ we don't change its value as $g(c)=0$ and we get it in derivative form. This value is just $g'(c)$ which is given to be $0$. Thus, we have:
+$$-B \cdot 0 \leq \lim_{x \to c} \frac{f(x)g(x)}{x-c} \leq B \cdot 0$$
+$$0 \leq \lim_{x \to c} \frac{f(x)g(x)}{x-c} \leq 0$$
+The only possible value of $\lim_{x \to c} \frac{f(x)g(x)}{x-c}$ that makes this equation true is $0$ which means the limit exists, and thus the derivative as well.
+\end{proof}
+
+\newpage
+\begin{exer}
+4.2.12: Suppose $a,b \in \mathbb{R}$ and $f:\mathbb{R} \rightarrow \mathbb{R}$ is differentiable, $f'(x)=a$ for all $x$, and $f(0)=b$. Find $f$ and prove that it is the unique differentiable function with this property.
+\end{exer}
+\begin{answer}
+The function is $f(x)=ax+b$. Then, $f'(x)=a$ and $f(0)=b$. This proves existence. Now we will prove that this is the only function with these properties.
+\end{answer}
+\begin{proof}
+Assume there exists a function $g(x) \neq f(x)$ such that $g'(x)=a$ and $g(0)=b$. The Mean Value Theorem states that if $f:[a,b]\rightarrow \mathbb{R}$ is a continuous function differentiable on $(a,b)$ then there exists a point $c\in (a,b)$ such that $f(b)-f(a)=f'(c)(b-a)$. \\
+Let $g$ be on the interval $[h,k] \in \mathbb{R}$ and $c\in (h,k)$. Plugging $h,k$ into the Mean Value Theorem we get:
+$$g(k)-g(h)=g'(c)(k-h)$$
+Since we know $g'(k)=a$, we have:
+$$g(k)-g(h)=a(k-h)$$
+$$g(k)-g(h)=ak-ah$$
+$$g(k)=ak-ah+g(h)$$
+We now analyze point $x\in \mathbb{R}$ that is on $g(x)$. We know that $g(k)=ak-ah+g(h)$ holds for all points $h,k \in g(x)$. Fix any value of $h$ and let $b=-ah+g(h)$. Then the equation reads $g(k)=ak+b$ which is identical to $f(x)=ax+b$.  Thus $f(x)\neq g(x)$ a contradiction and $f(x)=ax+b$ is the unique function.
+
+\begin{comment}
+We now analyze three cases: \\
+(1) If $x<0$, then we have the interval $(x,0)$. Plugging this into the above formula we have:
+$$g(x)-g(0)=g'(x)(x-0)$$
+$$g(x)-b=a(x-0)$$
+$$g(x)=ax+b$$
+(2) If $x=0$, then we have the point $(0,0)$. Note that this point can be rewritten in the form $0=0(a)+b$ where $b$ is 0. \\
+(3) If $x>0$, then we have the interval $(0,x)$. Plugging this into the above formula we have:
+$$g(0)-g(x)=g'(x)(0-x)$$
+$$b-g(x)=-ax$$
+$$g(x)=ax+b$$
+Thus, no matter the value of $x$, $g(x)$ is in the form $ax+b$. Thus $f(x)\neq g(x)$ a contradiction and $f(x)=ax+b$ is the unique function.
+\end{comment}
+
+
+\end{proof}
+
+
+\end{document}
+

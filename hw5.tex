@@ -1,0 +1,91 @@
+\documentclass[12pt,oneside]{amsart}
+\linespread{2.4}
+\usepackage[utf8]{inputenc}
+
+\title{Math 414/514 Homework 5t}
+\author{Elena Yang}
+\date{February 24, 2021}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[letterpaper,margin=1.5in]{geometry}
+\usepackage[pagebackref]{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{comment}
+\pagestyle{fancy}
+
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{claim}[equation]{Claim}
+\newtheorem{lemma}[equation]{Theorem}
+\newtheorem{corollary}[equation]{Theorem}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem{question}[equation]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definition}
+\theoremstyle{remark}
+\newtheorem{exer}{Exercise}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
+\numberwithin{equation}{exer}
+\newenvironment{answer}{\bigskip\noindent\emph{Answer.}}{\hfill$\diamond$\newline}
+
+\begin{document}
+\maketitle
+\begin{exer}
+Lebl 2.2.12: \\
+(a) Suppose $\{a_n\}$ is a bounded sequence and $\{b_n\}$ is a sequence converging to 0. Show that $\{a_nb_n\}$ converges to 0. \\
+(b) Find an example where $\{a_n\}$ is unbounded, $\{b_n\}$ converges to 0, and $\{a_nb_n\}$ is not convergent. \\
+(c) Find an example where $\{a_n\}$ is bounded, $\{b_n\}$ converges to some $x\neq 0$, and $\{a_nb_n\}$ is not convergent.
+\end{exer}
+\begin{proof}
+a) We know that $a_n$ is bounded which means there exists $M$ such that $|a_n|\leq M$ for all $n$. We also know that since $b_n$ converges to $0$, there exists a $N\in \mathbb{N}$ such that $|b_n-0|<\frac{\epsilon}{M}$ for all $n\geq N$. Thus, for all $n\geq N$, $|a_nb_n|=|a_n||b_n|\leq M|b_n|<M\cdot \frac{\epsilon}{M}=\epsilon$. 
+
+\end{proof}
+\begin{answer}
+b) Let $\{a_n\}=n^2$, $b_n=\frac{1}{n}$. Then $\{a_nb_n\}=n$ which isn't convergent
+\end{answer}
+\begin{answer}
+c) Let $\{a_n\}=\sin(n)$, $b_n=(1+\frac{1}{n}^n)$. 
+\end{answer}
+
+\newpage
+\begin{exer}
+Lebl 2.2.15: Prove $\lim_{n\to\infty}(n^2+1)^\frac{1}{n}=1$.
+\end{exer}
+\begin{proof}
+Note that $(n)^\frac{1}{n}\leq(n^2+1)^\frac{1}{n}\leq(n^3)^\frac{1}{n}$ for all $n\geq 1$. By Lebl example 2.2.14, $\lim_{n\to\infty}(n)^\frac{1}{n}=1$. We will now show that $\lim_{n\to\infty}(n^3)^\frac{1}{n}=1$: \\
+Let $\epsilon>0$ be given. Consider the sequence $\{\frac{n^3}{(1+\epsilon)^n}\}$. Compute:
+$$\frac{(n^3+1)/(1+\epsilon)^{n+1}}{(n^3)/(1+\epsilon)^n}=\frac{n^3+1}{n^3}=\frac{1}{1+\epsilon}$$
+And so the limit of $\frac{n^3+1}{n^3}=1+\frac{1}{n^3}$ as $n\to\infty$ is 1. Thus:
+$$\frac{(n^3+1)/(1+\epsilon)^{n+1}}{(n^3)/(1+\epsilon)^n}=\frac{1}{1+\epsilon}<1$$
+Therefore, $\{\frac{n^3}{(1+\epsilon)^n}\}$ converges to 0 by the ratio test for sequences. In particular, there exists an $N$ such that for $n\geq N$, we have $\frac{n^3}{(1+\epsilon)^n}<1$, or $n^3<(1+\epsilon)^n$, or $n^{3^{\frac{1}{n}}}<1+\epsilon$. As $n\geq 1$, then $n^{3^{\frac{1}{n}}}\geq 1$, and so $0\leq n^{3^{\frac{1}{n}}}-1<\epsilon$. Consequently, $\lim n^{3^{\frac{1}{n}}}=1$. \\
+Thus by the Squeeze Theorem, $\lim_{n\to\infty}(n^2+1)^\frac{1}{n}=1$.
+\end{proof}
+
+\newpage
+\begin{exer}
+Lebl 2.5.14: Suppose $\sum x_n$ converges and $x_n\geq 0$ for all n. Prove that $\sum x_n^2$ converges. What if we drop the assumption $x_n\geq 0$?
+\end{exer}
+\begin{proof}
+Since $\sum x_n$ converges, there exists $N\in\mathbb{N}$ such that for all $n\geq N$, $0<x_n<1$. This is because if $x_n>1$ for all $n$, the series would diverge. In this interval, $x_n^2<x_n$ for all $n$. Using the comparison test (prop 2.5.16) on the "tail" of the summation, namely where $0<x_n<1$, we see that since $x_n$ converges and $x_n^2<x_n$, $x_n^2$ also converges. This is because $x_n^2$ converges on this "tail" and there are finitely many terms beforehand which have a finite sum.
+\end{proof}
+\begin{answer}
+If we drop the assumption $x_n\geq 0$, then $\sum x_n^2$ does not have to converge. For example, we could have a series that displayed conditional convergence such as $\sum \frac{(-1)^n}{\sqrt(n)}$ which converges, but whose square is $\sum\frac{1}{n}$ which is the Harmonic Series which diverges.
+\end{answer}
+
+\newpage
+\begin{exer}
+TBB 3.12.8: Let $\{a_k\}$ be a monotonic sequence of real numbers such that $\sum_{k=1}^{\infty}a_k$ converges. Show that
+$$\sum_{k=1}^{\infty}k(a_k-a_{k+1})$$
+converges.
+\end{exer}
+\begin{proof}
+If we analyze the first few terms of the sequence, we get $1(a_1-a_2)+2(a_2-a_3)+3(a_3-a_4)+...$ which leaves us with a simplified expression of $a_1+a_2+a_3+...$. However, the last term which is unaccounted for is $-k\cdot a_{k+1}$. Since $a_1+a_2+a_3+...=a_k$ converges, we just need to show that $k\cdot a_{k+1}$ does as well. By the Monotone Convergence Theorem, since $a_k$ converges and is monotone, is it bounded and in fact converges to that bound. Since $\sum a_k$ converges and is monotone, then $k\cdot a_{k+1}$ converges as well. 
+\end{proof}
+
+\end{document}

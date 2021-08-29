@@ -1,0 +1,124 @@
+\documentclass[12pt,oneside]{amsart}
+\linespread{2.4}
+\usepackage[utf8]{inputenc}
+
+\title{Math 414/514 Homework 2}
+\author{Elena Yang}
+\date{February 3, 2021}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[letterpaper,margin=1.5in]{geometry}
+\usepackage[pagebackref]{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{comment}
+\pagestyle{fancy}
+
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{claim}[equation]{Claim}
+\newtheorem{lemma}[equation]{Theorem}
+\newtheorem{corollary}[equation]{Theorem}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem{question}[equation]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definition}
+\theoremstyle{remark}
+\newtheorem{exer}{Exercise}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
+\numberwithin{equation}{exer}
+\newenvironment{answer}{\bigskip\noindent\emph{Answer.}}{\hfill$\diamond$\newline}
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+\newcommand{\loRiemannint}[2]{
+  \underline{\int_{#1}^{#2}}
+}
+
+\begin{document}
+\maketitle
+
+\begin{exer}
+Read: \url{https://brownmath.com/stfa/read.htm}
+
+(a) What is one interesting or surprising idea you learned from this reading?
+(b) What is one idea you will use when you read mathematics?
+\end{exer}
+\begin{answer}
+(a) I learned that the assigned problems are the last part of the homework. The rest of the homework includes reading and understanding the section in the textbook. (b) I will use their "What To Do" outline: Skim for an overview, reread with concentration, go through each step of each example, fill in any gaps, think about what you've read, make it your own, divide and conquer, do the homework problems.
+\end{answer}
+
+\newpage
+\begin{exer}
+Let $f:[0,1]\rightarrow [0,1]$ be continuous. Show that $f$ has a fixed point. In other words, there exists $y\in [0,1]$ such that $f(y)=y$. (Hint: Use the Intermediate Value Theorem)
+\end{exer}
+\begin{proof}
+The Intermediate Value Theorem states: Let $f[a,b]\rightarrow \mathbb{R}$ be a continuous function. Suppose $y \in \mathbb{R}$ is such that $f(a)<y<f(b)$ or $f(a)>y>f(b)$. Then there exists a $c \in (a,b)$ such that $f(c)=y$. We're going to define $g(x)=f(x)-x$. If we analyze $g(0)$ and $g(1)$ we get:
+$$g(0)=f(0)-0\geq 0-0=0 \text{ ... since $f(0)$ is at min 0}$$ 
+$$g(1)=f(1)-1\leq 1-1=0 \text{ ... since $f(0)$ is at max 1}$$
+We now have $g(0) \geq 0 \geq g(1)$. Thus, by the IVT we have that there exists a point $c\in (0,1)$ such that $g(c)=0$. Since we defined $g(x)=f(x)-x$, we have $f(c)=c$.
+\end{proof}
+
+\newpage
+\begin{exer}
+5.1.3: Let $f:[a,b]\rightarrow \mathbb{R}$ be a bounded function. Suppose there exists a sequence of partitions $\{ P_k \}$ of $[a,b]$ such that
+$$ \lim_{k\to\infty} (U(P_k,f)-L(P_k,f))=0$$
+Show that $f$ is a Riemann integrable and that
+$$\int_{a}^{b}f=\lim_{k\to\infty} U(P_k,f)=\lim_{k\to\infty}L(P_k,f)$$
+\end{exer}
+\begin{proof}
+First, we will show that $f$ is Riemann integrable. Proposition 5.1.13 states that $f$ is Riemann integrable if for every $\epsilon >0$, there exists a partition $P$ such that:
+$$U(P,f)-L(P,f)<\epsilon$$
+We'll fix $\epsilon >0$. Then, there exists $N$ such that when $k\geq N$ then \\ $U(P_k,f)-L(P_k,f)<\epsilon$. Then, we have 
+$$L(P_k,f)\leq \loRiemannint{a}{b}f \leq \upRiemannint{a}{b}f \leq U(P_k,f) $$
+Since this holds for all $\epsilon >0$, we get $\loRiemannint{a}{b}f=\upRiemannint{a}{b}f$.
+\\
+Now, we'll prove $\int_{a}^{b}f=\lim_{k\to\infty} U(P_k,f)=\lim_{k\to\infty}L(P_k,f)$. Let $\epsilon >0$ be given. Let $N$ exist such that if $k>N$ then $U(P_k,f)-L(P_k,f)<\epsilon$. 
+Since $f$ is Riemann integrable, we know that $\loRiemannint{a}{b}f=\upRiemannint{a}{b}f=\int_{a}^{b}f$. Then, when $k \geq N$ we also know that $L(P,f_k)\leq \int_{a}^{b}f \leq U(P,f_k)$. \\
+Thus, we have:
+$$|U(P_k,f)-\int_{a}^{b}f|\leq U(P_k,f)-L(P_k,f) < \epsilon$$ so $\lim_{k\to\infty}U(P_k,f)=\int_{a}^{b}f$, and $$|L(P_k,f)-\int_{a}^{b}f|\leq U(P_k,f)-L(P_k,f) < \epsilon$$ so $\lim_{k\to\infty}L(P_k,f)=\int_{a}^{b}f$ as well.
+\end{proof}
+
+\newpage
+\begin{exer}
+5.1.10: Let $f:[0.1]\rightarrow \mathbb{R}$ be abounded function. Let $P_n=\{x_0,x_1,...,x_n\}$ be a uniform partition of $[0,1]$, that is, $x_j:=\frac{j}{n}$. Is $\{L(P_n,f)\}$ from $n=1$ to $\infty$ always monotone? Yes/No: Prove or find a counterexample.
+\end{exer}
+\begin{answer}
+If $f$ is a constant function, such as $f(x)=x$, we might assume that it is always monotone. However, $f$ does not have to be continuous, so if it's a disjoint or piecewise, it may not always be monotone.\\
+For example, take:
+\[ \begin{cases} 
+      1 & 0\leq x \leq \frac{1}{2} \\
+      2 & \frac{1}{2} < x \leq 1 \\
+   \end{cases}
+\]
+If $n=2$, then we have the lower sum is equal to $\frac{1}{2}(1+2)=\frac{3}{2}$. \\
+If $n=3$, then we have the lower sum is equal to $\frac{1}{3}(2+1+1)=\frac{4}{3}$. \\
+If $n=4$, then we have the lower sum is equal to $\frac{1}{4}(2+2+1+1)=\frac{3}{2}$.
+\end{answer}
+
+\newpage
+\begin{exer}
+Calculate $\int_{0}^{1}x^pdx$ (for whatever values of $p$ you can manage) by partitioning $[0,1]$ into subintervals of equal length.
+\end{exer}
+\begin{answer}
+We will calculate $\int_{0}^{1}x^pdx$ for $p>0$. We're going to define the uniform partition with $x_0=0$ and $x_n=1$:
+$$P=\{x_0,x_0+\frac{1}{n}+x_0+\frac{2}{n},...,x_0+x_0\frac{n-1}{n}+x_n\}$$
+We define:
+$$U(P,f)=\frac{1}{n}\sum_{i+1}^{n}\sup \{x^p:\frac{i-1}{n}\leq x \leq \frac{i+1}{n}\}$$
+$$L(P,f)=\frac{1}{n}\sum_{i+1}^{n}\inf \{x^p:\frac{i-1}{n}\leq x \leq \frac{i+1}{n}\}$$
+On the interval $[0,1]$, $x^p$ is increasing so we know:
+$$U(P,f)=\frac{1}{n}\sum_{i+1}^{n}i^p$$
+$$L(P,f)=\frac{1}{n}\sum_{i+1}^{n}(i-1)^p$$
+We see that:
+$$\upRiemannint{0}{1}x^p=\lim_{n\rightarrow \infty}\frac{1}{n}\sum_{i=1}^{n}(\frac{i}{n})^p=\lim_{n\rightarrow \infty}\frac{1}{n^{p+1}}\sum_{i=1}^{n}i^p$$
+$$\loRiemannint{0}{1}x^p=\lim_{n\rightarrow \infty}\frac{1}{n}\sum_{i=1}^{n}(\frac{i-1}{n})^p=\lim_{n\rightarrow \infty}\frac{1}{n^{p+1}}\sum_{i=1}^{n}(i-1)^p$$
+Note that all the terms except for the first are telescoping. For example, when $i=1$, the upper integral is equal to the lower integral when $i=2$. Thus, the only term that isn't duplicated is the first one so we get:
+$$\loRiemannint{0}{1}x^p=\frac{1}{p+1}=\upRiemannint{0}{1}x^p$$
+Which means that $\int_{0}^{1}x^p=\frac{1}{p+1}$ for all $p>0$.
+\end{answer}
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass[12pt,oneside]{amsart}
+\linespread{2.4}
+\usepackage[utf8]{inputenc}
+
+\title{Math 414/514 Homework 3}
+\author{Elena Yang}
+\date{February 10, 2021}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[letterpaper,margin=1.5in]{geometry}
+\usepackage[pagebackref]{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{comment}
+\pagestyle{fancy}
+
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{claim}[equation]{Claim}
+\newtheorem{lemma}[equation]{Theorem}
+\newtheorem{corollary}[equation]{Theorem}
+\newtheorem{conjecture}[equation]{Conjecture}
+\newtheorem{question}[equation]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definition}
+\theoremstyle{remark}
+\newtheorem{exer}{Exercise}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
+\numberwithin{equation}{exer}
+\newenvironment{answer}{\bigskip\noindent\emph{Answer.}}{\hfill$\diamond$\newline}
+
+\begin{document}
+\maketitle
+
+
+\begin{exer}
+Let $f:[a,b]\rightarrow \mathbb{R}$ be a continuous function such that $f(x)\geq 0$ for all $x\in [a,b]$ and $\int_{a}^{b}=0$. Prove that $f(x)=0$ for all $x$. Also, show that the hypothesis of continuity is necessary (give a counterexample to the version of the statement without the continuity hypothesis).
+\end{exer}
+\begin{proof}
+For the sake of contradiction, assume there exists $c \in [a,b]$ such that $f(c) \neq 0$. Definition 3.2.1 says that if $f$ is continuous at $c$ if for every every $\epsilon >0$ there is a $\delta >0$ such that whenever $x \in S$ and $|x-c|<\delta$, then $|f(x)-f(c)|<\frac{f(c)}{2}$. \\
+Then, there is an interval around $f(c)$ where the function is greater than 0. If $f\geq \frac{f(c)}{2}$ on $c-\delta,c+\delta$, then: 
+$$\int_{a}^{b}f(x)dx\geq =2\delta \frac{f(c)}{2}=\delta f(c) >0$$
+Which is a contradiction since $\int_{a}^{b}=0$
+\end{proof}
+\begin{answer}
+Let $f:[0,10]\rightarrow\mathbb{R}$ and 
+\[
+  f(x) =
+  \begin{cases}
+                                   0 & \text{if $x\neq \frac{1}{2}$} \\
+                                   1 & \text{if $x=\frac{1}{2}$} \\
+  \end{cases}
+\]
+Then the removable discontinuity makes it so that even though the integral is equal to 0, the point $x=\frac{1}{2}$ has $f(x)\neq 0$.
+\end{answer}
+
+\newpage
+\begin{exer}
+Let $f:[a,b]\rightarrow \mathbb{R}$ be increasing. Show that $f$ is Riemann integrable. Hint: use a uniform partition; each subinterval of same length.
+\end{exer}
+\begin{proof}
+Let $P_n=\{x_0,x_1,...,x_n\}$ be a uniform partition of $[a,b]$, that is, $x_j:=\frac{j}{n}$.
+Proposition 5.1.13 states that $f$ is Riemann integrable if for every $\epsilon >0$, there exists a partition $P$ such that: $$U(P,f)-L(P,f)<\epsilon$$
+Let the partitions be fine enough such that $x_i-x_{i-1}<\frac{\epsilon}{f(b)-f(a)}$. Also note that $x_i-x_{i-1}=(a+i\frac{b-a}{n})-(a+(i-1)\frac{b-a}{n})=\frac{b-a}{n}$. Let $f(b)>f(a)$. We have:
+$$U(P,f)-L(P,f)=\sum_{i=1}^{n}(\sup f(x)-\inf f(x))(x_i-x_{i-1})$$
+Where $\sup f(x)$ and $\inf f(x)$ are each defined on their respective partitions. Since each partition is the same width, we can rewrite this as:
+$$\sum_{i=1}^{n}(f(x_i)-f(x_{i-1}))(x_1-x_0)$$
+Note that the summation has telescoping values, so simplifying we have:
+$$(f(b)-f(a))(x_1-x_0)$$
+Before we defined the difference between any two partitions, or $x_i-x_{i-1}$ to be $\frac{b-a}{n}$. Plugging this in we get:
+$$(f(b)-f(a))\frac{b-a}{n}$$
+Taking the limit as $n\rightarrow \infty$ we get 0, or $U(P,f)-L(P,f)<0$. Since $0<\epsilon$ this completes our proof.
+\end{proof}
+
+\newpage
+
+\begin{exer}
+(a) Show that $f(x):=sin(\frac{1}{x})$ is integrable on any interval (you can define f(0) to be anything). (b) Compute $\int_{-1}^{1}sin(\frac{1}{x})dx$ (Mind the discontinuity)
+\end{exer}
+\begin{proof}
+(a) Define $f(x)=sin(\frac{1}{x})$ and $f(0)=0$. Then, by theorem 5.2.9, since $f$ is bounded and has finitely many discontinuities, $f$ is Riemann integrable. Since $\sin(\frac{1}{x})$ has a finite number of discontinuities, namely one at $x=0$, it is sufficient to say it meets the criterion and thus is Riemann integrable. We know that it is continuous everywhere other $x=0$ since $\sin(\frac{1}{x})$ is the composition of $sin(x)$ and $\frac{1}{x}$ which is continuous everywhere but $x=0$.
+\end{proof}
+\begin{answer}
+(b) $\int_{-1}^{1}sin(\frac{1}{x})dx=\int_{-1}^{\epsilon}\sin(\frac{1}{x})+\int_{\epsilon}^{1}\sin(\frac{1}{x})$. Using the fundamental theorem of calculus we see that if $F(x)$ is the anti-derivative of $sin(\frac{1}{x})$ then this value is $F(\epsilon)-F(-1)+F(1)-F(\epsilon)=F(1)-F(-1)$. where $F$ is the antiderivative of $\sin(\frac{1}{x})$.\\
+We can use theorem 5.3.5 which states that if $g:[a,b]\rightarrow \mathbb{R}$ is a continuously differentiable function, and $f:[c,d]\rightarrow \mathbb{R}$ is continuous, and $g([a,b])\subset [c,d]$, then $$\int_{a}^{b}f(g(x))g'(x)dx=\int_{g(a)}^{g(b)}f(s)ds$$
+Since $sin(\frac{1}{x})$ is an odd function so since it's symmetric around the origin, the integral is 0.
+\end{answer}
+
+\newpage
+
+\begin{exer}
+TBB 8.3.10: If $f$ and $g$ are continuous on an interval [a,b], show that 
+$$(\int_{a}^{b}f(x)g(x)dx)^2\leq (\int_{a}^{b}[f(x)]^2dx)(\int_{a}^{b}[g(x)]^2dx)$$
+\end{exer}
+\begin{proof}
+Define a function $f(t)$ to be $\int_{a}^{b}(tf(x)+g(x))^2$. Then $f(t)>0$ is always non-negative. Expanding this out, we get:
+$$0\leq t^2\int_{a}^{b}(f(x))^2dx+t\int_{a}^{b}2f(x)g(x)dx+\int_{a}^{b}(g(x))^2$$
+Note that this is in the form of $At^2+2Bt+C$ for $A=\int_{a}^{b}(f(x))^2$, $B=\int_{a}^{b}f(x)g(x)$, and $C=\int_{a}^{b}(g(x))^2$. \\
+We will now analyze the discriminant which is $(2B)^2-4AC$. We know that the discriminant is non-positive. This is because if it is positive, then both roots are real which implies that $At^2+2Bt+C$ is less than 0 for at least one t. But we defined it to be positive, so the discriminant can't be more than 0. So since it is non-positive, we have:
+$$(2B)^2-4AC\leq 0$$
+$$4B^2-4AC\leq 0$$
+$$B^2-AC\leq 0$$
+$$B^2\leq AC$$
+This matches the form of our original inequality, thus it's true.
+\end{proof}
+
+\iffalse
+\begin{exer}
+5.4.6: (a) Prove that for $n\in \mathbb{N}$, we have $$\sum_{k=2}^{n}\frac{1}{k}\leq ln(n)\leq \sum_{k=1}^{n-1}\frac{1}{k}$$
+(b) Prove that the limit $$\gamma := lim_{n\to \infty}(\sum_{k=1}^{n}\frac{1}{k}-ln(n))$$ exists.
+\end{exer}
+\begin{proof}
+(a) If $n\in \mathbb{N}$, then $0\leq ln(n)\leq \infty$.
+
+\end{proof}
+\begin{proof}
+(b) If we look at a graph of $\frac{1}{x}-ln(x)$ we see that it is decreasing. We can write this as:
+$$\frac{1}{k}-ln(k)-\frac{1}{k-1}+ln(k-1)$$
+For $\frac{1}{k}$ and $\frac{1}{k-1}$ all terms cancel except for $\frac{1}{k}$. Simplifying, we get:
+$$=\frac{1}{k}+ln(\frac{k-1}{k})$$
+For all $k\in \mathbb{N}$, this value is less than 0 and progressively becomes more negative. % prove this more rigourously 
+\end{proof}
+\fi
+
+\end{document}
+
